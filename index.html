@@ -43,7 +43,6 @@
     min-height: 100vh;
   }
 
-  /* HEADER */
   .header {
     background: linear-gradient(135deg, #2C2418 0%, #3D3225 100%);
     padding: 24px 32px;
@@ -86,7 +85,6 @@
     font-weight: 500;
   }
 
-  /* NAV TABS */
   .nav-tabs {
     display: flex;
     gap: 4px;
@@ -111,12 +109,8 @@
   }
 
   .nav-tab:hover { color: var(--text-primary); }
-  .nav-tab.active {
-    color: var(--honey);
-    border-bottom-color: var(--honey);
-  }
+  .nav-tab.active { color: var(--honey); border-bottom-color: var(--honey); }
 
-  /* MAIN LAYOUT */
   .main {
     max-width: 1200px;
     margin: 0 auto;
@@ -126,7 +120,6 @@
   .panel { display: none; }
   .panel.active { display: block; }
 
-  /* CARDS */
   .card {
     background: var(--warm-card);
     border: 1px solid var(--warm-border);
@@ -162,7 +155,7 @@
     color: var(--orange);
   }
 
-  /* CHECKLIST ITEMS */
+  /* CHECKLIST */
   .checklist-item {
     display: flex;
     align-items: center;
@@ -174,11 +167,7 @@
   }
 
   .checklist-item:hover { background: var(--honey-glow); }
-
-  .checklist-item.checked .check-label {
-    text-decoration: line-through;
-    color: var(--text-muted);
-  }
+  .checklist-item.checked .check-label { text-decoration: line-through; color: var(--text-muted); }
 
   .check-box {
     width: 20px;
@@ -196,33 +185,14 @@
   }
 
   .check-box:hover { border-color: var(--honey); }
+  .checklist-item.checked .check-box { background: var(--green); border-color: var(--green); }
 
-  .checklist-item.checked .check-box {
-    background: var(--green);
-    border-color: var(--green);
-  }
-
-  .check-box svg {
-    width: 12px;
-    height: 12px;
-    opacity: 0;
-    transition: opacity 0.2s;
-  }
-
+  .check-box svg { width: 12px; height: 12px; opacity: 0; transition: opacity 0.2s; }
   .checklist-item.checked .check-box svg { opacity: 1; }
 
-  .check-label {
-    font-size: 14px;
-    color: var(--text-primary);
-    flex: 1;
-  }
+  .check-label { font-size: 14px; color: var(--text-primary); flex: 1; }
 
-  .check-time {
-    font-size: 12px;
-    color: var(--text-muted);
-  }
-
-  /* ADD ITEM ROW */
+  /* INPUTS */
   .add-row {
     display: flex;
     gap: 8px;
@@ -231,8 +201,7 @@
     border-top: 1px solid var(--warm-border);
   }
 
-  .add-input {
-    flex: 1;
+  .add-input, .add-textarea, .add-select, .add-date {
     padding: 8px 12px;
     border: 1px solid var(--warm-border);
     border-radius: var(--radius-sm);
@@ -243,9 +212,11 @@
     transition: border-color 0.2s;
   }
 
-  .add-input:focus { border-color: var(--honey); }
-
-  .add-input::placeholder { color: var(--text-muted); }
+  .add-input, .add-textarea { flex: 1; }
+  .add-select, .add-date { font-size: 13px; color: var(--text-primary); }
+  .add-input:focus, .add-textarea:focus, .add-select:focus, .add-date:focus { border-color: var(--honey); }
+  .add-input::placeholder, .add-textarea::placeholder { color: var(--text-muted); }
+  .add-textarea { resize: vertical; min-height: 36px; }
 
   .add-btn {
     padding: 8px 16px;
@@ -262,35 +233,42 @@
 
   .add-btn:hover { background: #D69A2E; }
 
-  /* SELECT */
-  .add-select {
-    padding: 8px 12px;
-    border: 1px solid var(--warm-border);
-    border-radius: var(--radius-sm);
-    font-size: 13px;
-    font-family: 'DM Sans', sans-serif;
-    background: var(--warm-bg);
-    outline: none;
-    color: var(--text-primary);
+  /* ITEM ACTIONS */
+  .item-actions {
+    display: flex;
+    gap: 2px;
+    opacity: 0;
+    transition: opacity 0.15s;
+    flex-shrink: 0;
   }
 
-  .add-select:focus { border-color: var(--honey); }
+  .waiting-item:hover .item-actions,
+  .deadline-item:hover .item-actions,
+  .note-item:hover .item-actions,
+  .campaign-card:hover .item-actions,
+  .checklist-item:hover .item-actions { opacity: 1; }
 
-  /* DATE INPUT */
-  .add-date {
-    padding: 8px 12px;
-    border: 1px solid var(--warm-border);
-    border-radius: var(--radius-sm);
+  .action-btn {
+    width: 26px;
+    height: 26px;
+    border: none;
+    background: none;
+    cursor: pointer;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-muted);
+    transition: all 0.15s;
+    padding: 0;
     font-size: 13px;
-    font-family: 'DM Sans', sans-serif;
-    background: var(--warm-bg);
-    outline: none;
-    color: var(--text-primary);
   }
 
-  .add-date:focus { border-color: var(--honey); }
+  .action-btn:hover { background: var(--warm-border); color: var(--text-primary); }
+  .action-btn.delete:hover { background: var(--red-light); color: var(--red); }
+  .action-btn.edit:hover { background: var(--blue-light); color: var(--blue); }
 
-  /* WAITING ON ITEMS */
+  /* WAITING ON */
   .waiting-item {
     display: flex;
     align-items: center;
@@ -304,7 +282,6 @@
   }
 
   .waiting-item:hover { border-left-color: var(--honey); }
-
   .waiting-item.overdue { border-left-color: var(--red); background: var(--red-light); }
   .waiting-item.due-soon { border-left-color: var(--orange); background: var(--orange-light); }
 
@@ -325,49 +302,10 @@
   .person-wknd { background: var(--green-light); color: var(--green); }
   .person-other { background: var(--honey-light); color: var(--orange); }
 
-  .waiting-text {
-    flex: 1;
-    font-size: 14px;
-  }
-
-  .waiting-date {
-    font-size: 12px;
-    color: var(--text-muted);
-    flex-shrink: 0;
-  }
-
+  .waiting-text { flex: 1; font-size: 14px; }
+  .waiting-date { font-size: 12px; color: var(--text-muted); flex-shrink: 0; }
   .waiting-date.overdue { color: var(--red); font-weight: 600; }
   .waiting-date.due-soon { color: var(--orange); font-weight: 600; }
-
-  .item-actions {
-    display: flex;
-    gap: 4px;
-    opacity: 0;
-    transition: opacity 0.15s;
-  }
-
-  .waiting-item:hover .item-actions,
-  .deadline-item:hover .item-actions,
-  .note-item:hover .item-actions,
-  .campaign-card:hover .item-actions { opacity: 1; }
-
-  .action-btn {
-    width: 24px;
-    height: 24px;
-    border: none;
-    background: none;
-    cursor: pointer;
-    border-radius: 4px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--text-muted);
-    transition: all 0.15s;
-    padding: 0;
-  }
-
-  .action-btn:hover { background: var(--warm-border); color: var(--text-primary); }
-  .action-btn.delete:hover { background: var(--red-light); color: var(--red); }
 
   /* DEADLINES */
   .deadline-item {
@@ -404,16 +342,8 @@
   }
 
   .deadline-info { flex: 1; }
-
-  .deadline-title {
-    font-size: 14px;
-    font-weight: 500;
-  }
-
-  .deadline-date {
-    font-size: 12px;
-    color: var(--text-muted);
-  }
+  .deadline-title { font-size: 14px; font-weight: 500; }
+  .deadline-date { font-size: 12px; color: var(--text-muted); }
 
   /* NOTES */
   .note-item {
@@ -427,58 +357,11 @@
     gap: 12px;
   }
 
-  .note-text {
-    flex: 1;
-    font-size: 14px;
-    white-space: pre-wrap;
-  }
+  .note-text { flex: 1; font-size: 14px; white-space: pre-wrap; }
+  .note-meta { font-size: 11px; color: var(--text-muted); margin-top: 6px; }
 
-  .note-meta {
-    font-size: 11px;
-    color: var(--text-muted);
-    margin-top: 6px;
-  }
-
-  .add-textarea {
-    flex: 1;
-    padding: 8px 12px;
-    border: 1px solid var(--warm-border);
-    border-radius: var(--radius-sm);
-    font-size: 14px;
-    font-family: 'DM Sans', sans-serif;
-    background: var(--warm-bg);
-    outline: none;
-    resize: vertical;
-    min-height: 36px;
-    transition: border-color 0.2s;
-  }
-
-  .add-textarea:focus { border-color: var(--honey); }
-
-  /* WEEKLY TASKS */
-  .week-day-section {
-    margin-bottom: 20px;
-  }
-
-  .week-day-label {
-    font-size: 12px;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.8px;
-    color: var(--text-muted);
-    margin-bottom: 8px;
-    padding-left: 4px;
-  }
-
-  .week-day-label.today {
-    color: var(--honey);
-  }
-
-  .day-select-group {
-    display: flex;
-    gap: 4px;
-    flex-wrap: wrap;
-  }
+  /* WEEKLY */
+  .day-select-group { display: flex; gap: 4px; flex-wrap: wrap; }
 
   .day-chip {
     padding: 4px 10px;
@@ -495,7 +378,7 @@
   .day-chip:hover { border-color: var(--honey); }
   .day-chip.selected { background: var(--honey); color: #FFF; border-color: var(--honey); }
 
-  /* CAMPAIGN STATUS CARDS */
+  /* CAMPAIGNS */
   .campaigns-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
@@ -511,23 +394,10 @@
     transition: all 0.2s;
   }
 
-  .campaign-card:hover {
-    box-shadow: var(--shadow-md);
-    border-color: var(--honey);
-  }
+  .campaign-card:hover { box-shadow: var(--shadow-md); border-color: var(--honey); }
 
-  .campaign-name {
-    font-family: 'Fraunces', serif;
-    font-size: 16px;
-    font-weight: 500;
-    margin-bottom: 4px;
-  }
-
-  .campaign-dates {
-    font-size: 12px;
-    color: var(--text-muted);
-    margin-bottom: 12px;
-  }
+  .campaign-name { font-family: 'Fraunces', serif; font-size: 16px; font-weight: 500; margin-bottom: 4px; }
+  .campaign-dates { font-size: 12px; color: var(--text-muted); margin-bottom: 12px; }
 
   .campaign-status {
     display: inline-block;
@@ -551,23 +421,11 @@
     white-space: pre-wrap;
   }
 
-  /* PROGRESS BAR */
-  .progress-bar {
-    height: 4px;
-    background: var(--warm-border);
-    border-radius: 2px;
-    overflow: hidden;
-    margin: 12px 0;
-  }
+  /* PROGRESS */
+  .progress-bar { height: 4px; background: var(--warm-border); border-radius: 2px; overflow: hidden; margin: 12px 0; }
+  .progress-fill { height: 100%; background: var(--honey); border-radius: 2px; transition: width 0.4s ease; }
 
-  .progress-fill {
-    height: 100%;
-    background: var(--honey);
-    border-radius: 2px;
-    transition: width 0.4s ease;
-  }
-
-  /* STATS ROW */
+  /* STATS */
   .stats-row {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
@@ -584,31 +442,12 @@
     box-shadow: var(--shadow-sm);
   }
 
-  .stat-value {
-    font-family: 'Fraunces', serif;
-    font-size: 28px;
-    font-weight: 700;
-    color: var(--honey);
-  }
-
-  .stat-label {
-    font-size: 12px;
-    color: var(--text-muted);
-    margin-top: 2px;
-  }
+  .stat-value { font-family: 'Fraunces', serif; font-size: 28px; font-weight: 700; color: var(--honey); }
+  .stat-label { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
 
   /* EMPTY STATE */
-  .empty-state {
-    text-align: center;
-    padding: 32px 16px;
-    color: var(--text-muted);
-    font-size: 14px;
-  }
-
-  .empty-state-icon {
-    font-size: 32px;
-    margin-bottom: 8px;
-  }
+  .empty-state { text-align: center; padding: 32px 16px; color: var(--text-muted); font-size: 14px; }
+  .empty-state-icon { font-size: 32px; margin-bottom: 8px; }
 
   /* MODAL */
   .modal-overlay {
@@ -633,23 +472,10 @@
     box-shadow: var(--shadow-lg);
   }
 
-  .modal-title {
-    font-family: 'Fraunces', serif;
-    font-size: 18px;
-    margin-bottom: 16px;
-  }
+  .modal-title { font-family: 'Fraunces', serif; font-size: 18px; margin-bottom: 16px; }
 
-  .modal-field {
-    margin-bottom: 12px;
-  }
-
-  .modal-label {
-    font-size: 12px;
-    font-weight: 600;
-    color: var(--text-secondary);
-    margin-bottom: 4px;
-    display: block;
-  }
+  .modal-field { margin-bottom: 12px; }
+  .modal-label { font-size: 12px; font-weight: 600; color: var(--text-secondary); margin-bottom: 4px; display: block; }
 
   .modal-input {
     width: 100%;
@@ -681,26 +507,27 @@
     color: var(--text-secondary);
   }
 
-  /* RESPONSIVE */
-  @media (max-width: 768px) {
-    .header { padding: 16px 20px; }
-    .nav-tabs { padding: 12px 20px 0; }
-    .main { padding: 16px; }
-    .campaigns-grid { grid-template-columns: 1fr; }
-    .stats-row { grid-template-columns: repeat(2, 1fr); }
-    .add-row { flex-wrap: wrap; }
-    .add-select, .add-date { flex: 1; min-width: 100px; }
+  .modal-cancel:hover { background: var(--warm-bg); }
+
+  /* EDIT MODAL DAY CHIPS */
+  .modal-day-chips { display: flex; gap: 4px; flex-wrap: wrap; margin-top: 4px; }
+
+  .modal-day-chip {
+    padding: 4px 10px;
+    border: 1px solid var(--warm-border);
+    border-radius: 20px;
+    font-size: 12px;
+    cursor: pointer;
+    background: transparent;
+    color: var(--text-secondary);
+    font-family: 'DM Sans', sans-serif;
+    transition: all 0.15s;
   }
 
-  /* ANIMATIONS */
-  @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(8px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
+  .modal-day-chip:hover { border-color: var(--honey); }
+  .modal-day-chip.selected { background: var(--honey); color: #FFF; border-color: var(--honey); }
 
-  .card { animation: fadeIn 0.3s ease; }
-
-  /* Reset button */
+  /* RESET BTN */
   .reset-btn {
     padding: 6px 14px;
     background: none;
@@ -713,15 +540,28 @@
     transition: all 0.2s;
   }
 
-  .reset-btn:hover {
-    border-color: var(--honey);
-    color: var(--honey);
+  .reset-btn:hover { border-color: var(--honey); color: var(--honey); }
+
+  @media (max-width: 768px) {
+    .header { padding: 16px 20px; }
+    .nav-tabs { padding: 12px 20px 0; }
+    .main { padding: 16px; }
+    .campaigns-grid { grid-template-columns: 1fr; }
+    .stats-row { grid-template-columns: repeat(2, 1fr); }
+    .add-row { flex-wrap: wrap; }
+    .add-select, .add-date { flex: 1; min-width: 100px; }
   }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .card { animation: fadeIn 0.3s ease; }
 </style>
 </head>
 <body>
 
-<!-- HEADER -->
 <div class="header">
   <div class="header-left">
     <div class="header-icon">🍯</div>
@@ -733,7 +573,6 @@
   <button class="reset-btn" onclick="resetDailyChecklist()">Reset Daily Tasks</button>
 </div>
 
-<!-- NAV -->
 <div class="nav-tabs">
   <button class="nav-tab active" data-panel="dashboard">Dashboard</button>
   <button class="nav-tab" data-panel="daily">Daily Tasks</button>
@@ -744,13 +583,11 @@
   <button class="nav-tab" data-panel="campaigns">Campaigns</button>
 </div>
 
-<!-- MAIN -->
 <div class="main">
 
-  <!-- ========== DASHBOARD ========== -->
+  <!-- DASHBOARD -->
   <div class="panel active" id="panel-dashboard">
     <div class="stats-row" id="statsRow"></div>
-
     <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
       <div class="card">
         <div class="card-header">
@@ -760,7 +597,6 @@
         <div class="progress-bar"><div class="progress-fill" id="dashDailyProgress" style="width: 0%"></div></div>
         <div id="dashDailyList"></div>
       </div>
-
       <div class="card">
         <div class="card-header">
           <div class="card-title">Waiting On</div>
@@ -769,16 +605,13 @@
         <div id="dashWaitingList"></div>
       </div>
     </div>
-
     <div class="card" style="margin-top: 16px;">
-      <div class="card-header">
-        <div class="card-title">Upcoming Deadlines</div>
-      </div>
+      <div class="card-header"><div class="card-title">Upcoming Deadlines</div></div>
       <div id="dashDeadlinesList"></div>
     </div>
   </div>
 
-  <!-- ========== DAILY TASKS ========== -->
+  <!-- DAILY TASKS -->
   <div class="panel" id="panel-daily">
     <div class="card">
       <div class="card-header">
@@ -794,7 +627,7 @@
     </div>
   </div>
 
-  <!-- ========== WAITING ON ========== -->
+  <!-- WAITING ON -->
   <div class="panel" id="panel-waiting">
     <div class="card">
       <div class="card-header">
@@ -816,7 +649,7 @@
     </div>
   </div>
 
-  <!-- ========== DEADLINES ========== -->
+  <!-- DEADLINES -->
   <div class="panel" id="panel-deadlines">
     <div class="card">
       <div class="card-header">
@@ -832,7 +665,7 @@
     </div>
   </div>
 
-  <!-- ========== NOTES ========== -->
+  <!-- NOTES -->
   <div class="panel" id="panel-notes">
     <div class="card">
       <div class="card-header">
@@ -847,12 +680,10 @@
     </div>
   </div>
 
-  <!-- ========== WEEKLY RHYTHM ========== -->
+  <!-- WEEKLY RHYTHM -->
   <div class="panel" id="panel-weekly">
     <div class="card">
-      <div class="card-header">
-        <div class="card-title">Weekly Rhythm Tasks</div>
-      </div>
+      <div class="card-header"><div class="card-title">Weekly Rhythm Tasks</div></div>
       <p style="font-size: 13px; color: var(--text-secondary); margin-bottom: 16px;">Tasks that repeat on specific days each week. These show up automatically in your daily view.</p>
       <div id="weeklyList"></div>
       <div class="add-row" style="flex-wrap: wrap; gap: 8px;">
@@ -871,7 +702,7 @@
     </div>
   </div>
 
-  <!-- ========== CAMPAIGNS ========== -->
+  <!-- CAMPAIGNS -->
   <div class="panel" id="panel-campaigns">
     <div class="card">
       <div class="card-header">
@@ -884,10 +715,22 @@
 
 </div>
 
-<!-- CAMPAIGN MODAL -->
+<!-- EDIT MODAL (generic, reused for all edit types) -->
+<div class="modal-overlay" id="editModal">
+  <div class="modal">
+    <div class="modal-title" id="editModalTitle">Edit Item</div>
+    <div id="editModalFields"></div>
+    <div class="modal-actions">
+      <button class="modal-cancel" onclick="closeEditModal()">Cancel</button>
+      <button class="add-btn" id="editModalSave">Save</button>
+    </div>
+  </div>
+</div>
+
+<!-- CAMPAIGN ADD MODAL -->
 <div class="modal-overlay" id="campaignModal">
   <div class="modal">
-    <div class="modal-title">Add Campaign / Launch</div>
+    <div class="modal-title" id="campaignModalTitle">Add Campaign / Launch</div>
     <div class="modal-field">
       <label class="modal-label">Name</label>
       <input type="text" class="modal-input" id="campName" placeholder="e.g., Easter Collection 2026">
@@ -915,34 +758,21 @@
     </div>
     <div class="modal-actions">
       <button class="modal-cancel" onclick="closeCampaignModal()">Cancel</button>
-      <button class="add-btn" onclick="addCampaign()">Add Campaign</button>
+      <button class="add-btn" id="campaignModalSaveBtn" onclick="saveCampaign()">Add Campaign</button>
     </div>
   </div>
 </div>
 
 <script>
-  // ==================== DATA LAYER ====================
-  // Uses localStorage with date-based keys for daily reset
-
   const STORAGE_PREFIX = 'nectar_ops_';
   const TODAY = new Date().toISOString().split('T')[0];
 
-  function save(key, data) {
-    localStorage.setItem(STORAGE_PREFIX + key, JSON.stringify(data));
-  }
-
+  function save(key, data) { localStorage.setItem(STORAGE_PREFIX + key, JSON.stringify(data)); }
   function load(key, fallback = []) {
-    try {
-      const d = localStorage.getItem(STORAGE_PREFIX + key);
-      return d ? JSON.parse(d) : fallback;
-    } catch { return fallback; }
+    try { const d = localStorage.getItem(STORAGE_PREFIX + key); return d ? JSON.parse(d) : fallback; } catch { return fallback; }
   }
+  function genId() { return Date.now().toString(36) + Math.random().toString(36).slice(2, 6); }
 
-  function genId() {
-    return Date.now().toString(36) + Math.random().toString(36).slice(2, 6);
-  }
-
-  // ==================== DATE HELPERS ====================
   function formatDate(dateStr) {
     if (!dateStr) return '';
     const d = new Date(dateStr + 'T00:00:00');
@@ -956,8 +786,100 @@
     return Math.ceil((target - today) / (1000 * 60 * 60 * 24));
   }
 
-  function getDayName(num) {
-    return ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'][num];
+  function escHtml(str) {
+    const div = document.createElement('div');
+    div.textContent = str;
+    return div.innerHTML;
+  }
+
+  // ==================== EDIT MODAL SYSTEM ====================
+  let currentEditCallback = null;
+
+  function openEditModal(title, fields, values, onSave) {
+    document.getElementById('editModalTitle').textContent = title;
+    const container = document.getElementById('editModalFields');
+    container.innerHTML = '';
+
+    fields.forEach(field => {
+      const div = document.createElement('div');
+      div.className = 'modal-field';
+
+      const label = document.createElement('label');
+      label.className = 'modal-label';
+      label.textContent = field.label;
+      div.appendChild(label);
+
+      if (field.type === 'text' || field.type === 'date') {
+        const input = document.createElement('input');
+        input.type = field.type;
+        input.className = 'modal-input';
+        input.id = 'edit_' + field.key;
+        input.value = values[field.key] || '';
+        if (field.placeholder) input.placeholder = field.placeholder;
+        div.appendChild(input);
+      } else if (field.type === 'textarea') {
+        const ta = document.createElement('textarea');
+        ta.className = 'modal-input';
+        ta.id = 'edit_' + field.key;
+        ta.rows = 3;
+        ta.value = values[field.key] || '';
+        if (field.placeholder) ta.placeholder = field.placeholder;
+        div.appendChild(ta);
+      } else if (field.type === 'select') {
+        const sel = document.createElement('select');
+        sel.className = 'modal-input';
+        sel.id = 'edit_' + field.key;
+        field.options.forEach(opt => {
+          const o = document.createElement('option');
+          o.value = opt.value;
+          o.textContent = opt.label;
+          if (values[field.key] === opt.value) o.selected = true;
+          sel.appendChild(o);
+        });
+        div.appendChild(sel);
+      } else if (field.type === 'days') {
+        const chips = document.createElement('div');
+        chips.className = 'modal-day-chips';
+        chips.id = 'edit_' + field.key;
+        const dayNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+        dayNames.forEach((name, i) => {
+          const chip = document.createElement('button');
+          chip.className = 'modal-day-chip' + ((values[field.key] || []).includes(i) ? ' selected' : '');
+          chip.textContent = name;
+          chip.dataset.day = i;
+          chip.onclick = () => chip.classList.toggle('selected');
+          chips.appendChild(chip);
+        });
+        div.appendChild(chips);
+      }
+
+      container.appendChild(div);
+    });
+
+    currentEditCallback = onSave;
+    document.getElementById('editModalSave').onclick = () => {
+      const result = {};
+      fields.forEach(field => {
+        if (field.type === 'days') {
+          result[field.key] = [...document.querySelectorAll('#edit_' + field.key + ' .modal-day-chip.selected')]
+            .map(c => parseInt(c.dataset.day)).sort();
+        } else {
+          result[field.key] = document.getElementById('edit_' + field.key).value;
+        }
+      });
+      onSave(result);
+      closeEditModal();
+    };
+
+    document.getElementById('editModal').classList.add('active');
+    // Focus first input
+    const firstInput = container.querySelector('input, textarea');
+    if (firstInput) setTimeout(() => firstInput.focus(), 50);
+  }
+
+  function closeEditModal() {
+    document.getElementById('editModal').classList.remove('active');
+    currentEditCallback = null;
   }
 
   // ==================== DAILY TASKS ====================
@@ -970,11 +892,15 @@
     ];
   }
 
+  function getWeeklyTasksForToday() {
+    const dayNum = new Date().getDay();
+    return load('weekly', []).filter(t => t.days && t.days.includes(dayNum));
+  }
+
   function loadDailyTasks() {
     const key = 'daily_' + TODAY;
     let tasks = load(key, null);
     if (!tasks) {
-      // Start with defaults + any custom tasks from yesterday or generic
       const customTasks = load('daily_custom', []);
       const weeklyForToday = getWeeklyTasksForToday();
       tasks = [
@@ -987,9 +913,7 @@
     return tasks;
   }
 
-  function saveDailyTasks(tasks) {
-    save('daily_' + TODAY, tasks);
-  }
+  function saveDailyTasks(tasks) { save('daily_' + TODAY, tasks); }
 
   function renderDailyTasks() {
     const tasks = loadDailyTasks();
@@ -1000,20 +924,20 @@
     document.getElementById('dailyCount').textContent = `${checked}/${total}`;
     document.getElementById('dailyProgress').style.width = pct + '%';
 
-    const list = document.getElementById('dailyList');
-    list.innerHTML = tasks.map(t => `
-      <div class="checklist-item ${t.checked ? 'checked' : ''}" onclick="toggleDaily('${t.id}')">
-        <button class="check-box">
-          <svg viewBox="0 0 12 12" fill="none" stroke="white" stroke-width="2">
-            <path d="M2 6l3 3 5-5"/>
-          </svg>
+    document.getElementById('dailyList').innerHTML = tasks.map(t => `
+      <div class="checklist-item ${t.checked ? 'checked' : ''}">
+        <button class="check-box" onclick="toggleDaily('${t.id}')">
+          <svg viewBox="0 0 12 12" fill="none" stroke="white" stroke-width="2"><path d="M2 6l3 3 5-5"/></svg>
         </button>
-        <span class="check-label">${escHtml(t.text)}</span>
-        ${!t.text.startsWith('📅') ? `<button class="action-btn delete" onclick="event.stopPropagation(); removeDailyTask('${t.id}')" title="Remove">✕</button>` : ''}
+        <span class="check-label" onclick="toggleDaily('${t.id}')">${escHtml(t.text)}</span>
+        <div class="item-actions">
+          ${!t.isWeekly ? `<button class="action-btn edit" onclick="editDailyTask('${t.id}')" title="Edit">✎</button>` : ''}
+          ${!t.isWeekly ? `<button class="action-btn delete" onclick="removeDailyTask('${t.id}')" title="Remove">✕</button>` : ''}
+        </div>
       </div>
     `).join('');
 
-    // Dashboard mirror
+    // Dashboard
     document.getElementById('dashDailyCount').textContent = `${checked}/${total}`;
     document.getElementById('dashDailyProgress').style.width = pct + '%';
     document.getElementById('dashDailyList').innerHTML = tasks.filter(t => !t.checked).slice(0, 5).map(t => `
@@ -1036,32 +960,44 @@
     const input = document.getElementById('dailyInput');
     const text = input.value.trim();
     if (!text) return;
-
-    // Add to today
     const tasks = loadDailyTasks();
     const newTask = { id: genId(), text, checked: false };
     tasks.push(newTask);
     saveDailyTasks(tasks);
-
-    // Also save as custom recurring
     const custom = load('daily_custom', []);
     custom.push({ id: newTask.id, text });
     save('daily_custom', custom);
-
     input.value = '';
     renderDailyTasks();
     renderStats();
+  }
+
+  function editDailyTask(id) {
+    const tasks = loadDailyTasks();
+    const task = tasks.find(t => t.id === id);
+    if (!task) return;
+    openEditModal('Edit Task', [
+      { key: 'text', label: 'Task', type: 'text', placeholder: 'Task description' }
+    ], { text: task.text }, (result) => {
+      if (!result.text.trim()) return;
+      task.text = result.text.trim();
+      saveDailyTasks(tasks);
+      // Also update custom
+      const custom = load('daily_custom', []);
+      const ct = custom.find(c => c.id === id);
+      if (ct) { ct.text = task.text; save('daily_custom', custom); }
+      // Also update defaults if it's a default task
+      renderDailyTasks();
+    });
   }
 
   function removeDailyTask(id) {
     let tasks = loadDailyTasks();
     tasks = tasks.filter(t => t.id !== id);
     saveDailyTasks(tasks);
-
     let custom = load('daily_custom', []);
     custom = custom.filter(t => t.id !== id);
     save('daily_custom', custom);
-
     renderDailyTasks();
     renderStats();
   }
@@ -1077,12 +1013,7 @@
   // ==================== WAITING ON ====================
   function renderWaiting() {
     const items = load('waiting', []);
-
-    items.sort((a, b) => {
-      const da = daysUntil(a.date);
-      const db = daysUntil(b.date);
-      return da - db;
-    });
+    items.sort((a, b) => daysUntil(a.date) - daysUntil(b.date));
 
     document.getElementById('waitingCount').textContent = items.length;
 
@@ -1095,14 +1026,14 @@
         const statusClass = days < 0 ? 'overdue' : days <= 2 ? 'due-soon' : '';
         const dateClass = days < 0 ? 'overdue' : days <= 2 ? 'due-soon' : '';
         const personClass = 'person-' + item.person.toLowerCase();
-        const dateLabel = !item.date ? '' : days < 0 ? `${Math.abs(days)}d overdue` : days === 0 ? 'Today' : days === 1 ? 'Tomorrow' : `${formatDate(item.date)}`;
-
+        const dateLabel = !item.date ? '' : days < 0 ? `${Math.abs(days)}d overdue` : days === 0 ? 'Today' : days === 1 ? 'Tomorrow' : formatDate(item.date);
         return `
           <div class="waiting-item ${statusClass}">
             <span class="waiting-person ${personClass}">${escHtml(item.person)}</span>
             <span class="waiting-text">${escHtml(item.text)}</span>
             <span class="waiting-date ${dateClass}">${dateLabel}</span>
             <div class="item-actions">
+              <button class="action-btn edit" onclick="editWaiting('${item.id}')" title="Edit">✎</button>
               <button class="action-btn delete" onclick="removeWaiting('${item.id}')" title="Done / Remove">✕</button>
             </div>
           </div>
@@ -1110,7 +1041,7 @@
       }).join('');
     }
 
-    // Dashboard mirror - show overdue & due soon first
+    // Dashboard
     const urgent = items.filter(i => daysUntil(i.date) <= 3).slice(0, 4);
     document.getElementById('dashWaitingCount').textContent = items.length;
     document.getElementById('dashWaitingList').innerHTML = urgent.length > 0 ? urgent.map(item => {
@@ -1132,21 +1063,40 @@
     const text = document.getElementById('waitingInput').value.trim();
     const date = document.getElementById('waitingDate').value;
     if (!text) return;
-
     const items = load('waiting', []);
     items.push({ id: genId(), person, text, date, created: TODAY });
     save('waiting', items);
-
     document.getElementById('waitingInput').value = '';
     document.getElementById('waitingDate').value = '';
     renderWaiting();
     renderStats();
   }
 
+  function editWaiting(id) {
+    const items = load('waiting', []);
+    const item = items.find(i => i.id === id);
+    if (!item) return;
+    openEditModal('Edit Waiting Item', [
+      { key: 'person', label: 'Person', type: 'select', options: [
+        { value: 'Claire', label: 'Claire' },
+        { value: 'Aly', label: 'Aly' },
+        { value: 'WKND', label: 'WKND' },
+        { value: 'Other', label: 'Other' }
+      ]},
+      { key: 'text', label: 'Description', type: 'text', placeholder: 'What are you waiting on?' },
+      { key: 'date', label: 'Due Date', type: 'date' }
+    ], item, (result) => {
+      if (!result.text.trim()) return;
+      item.person = result.person;
+      item.text = result.text.trim();
+      item.date = result.date;
+      save('waiting', items);
+      renderWaiting();
+    });
+  }
+
   function removeWaiting(id) {
-    let items = load('waiting', []);
-    items = items.filter(i => i.id !== id);
-    save('waiting', items);
+    save('waiting', load('waiting', []).filter(i => i.id !== id));
     renderWaiting();
     renderStats();
   }
@@ -1155,7 +1105,6 @@
   function renderDeadlines() {
     const items = load('deadlines', []);
     items.sort((a, b) => daysUntil(a.date) - daysUntil(b.date));
-
     document.getElementById('deadlineCount').textContent = items.length;
 
     const list = document.getElementById('deadlineList');
@@ -1167,7 +1116,6 @@
         const countClass = days < 0 ? 'overdue' : days <= 3 ? 'urgent' : 'ok';
         const countText = days < 0 ? Math.abs(days) : days;
         const unitText = days < 0 ? 'OVERDUE' : days === 0 ? 'TODAY' : days === 1 ? 'DAY' : 'DAYS';
-
         return `
           <div class="deadline-item">
             <div class="deadline-countdown ${countClass}">
@@ -1179,6 +1127,7 @@
               <div class="deadline-date">${formatDate(item.date)}</div>
             </div>
             <div class="item-actions">
+              <button class="action-btn edit" onclick="editDeadline('${item.id}')" title="Edit">✎</button>
               <button class="action-btn delete" onclick="removeDeadline('${item.id}')" title="Done / Remove">✕</button>
             </div>
           </div>
@@ -1186,7 +1135,7 @@
       }).join('');
     }
 
-    // Dashboard mirror
+    // Dashboard
     const upcoming = items.filter(i => daysUntil(i.date) >= 0).slice(0, 4);
     document.getElementById('dashDeadlinesList').innerHTML = upcoming.length > 0 ? upcoming.map(item => {
       const days = daysUntil(item.date);
@@ -1206,21 +1155,33 @@
     const text = document.getElementById('deadlineInput').value.trim();
     const date = document.getElementById('deadlineDate').value;
     if (!text || !date) return;
-
     const items = load('deadlines', []);
     items.push({ id: genId(), text, date });
     save('deadlines', items);
-
     document.getElementById('deadlineInput').value = '';
     document.getElementById('deadlineDate').value = '';
     renderDeadlines();
     renderStats();
   }
 
+  function editDeadline(id) {
+    const items = load('deadlines', []);
+    const item = items.find(i => i.id === id);
+    if (!item) return;
+    openEditModal('Edit Deadline', [
+      { key: 'text', label: 'Description', type: 'text', placeholder: 'What is the deadline for?' },
+      { key: 'date', label: 'Due Date', type: 'date' }
+    ], item, (result) => {
+      if (!result.text.trim() || !result.date) return;
+      item.text = result.text.trim();
+      item.date = result.date;
+      save('deadlines', items);
+      renderDeadlines();
+    });
+  }
+
   function removeDeadline(id) {
-    let items = load('deadlines', []);
-    items = items.filter(i => i.id !== id);
-    save('deadlines', items);
+    save('deadlines', load('deadlines', []).filter(i => i.id !== id));
     renderDeadlines();
     renderStats();
   }
@@ -1241,6 +1202,7 @@
             <div class="note-meta">${formatDate(item.created)}</div>
           </div>
           <div class="item-actions">
+            <button class="action-btn edit" onclick="editNote('${item.id}')" title="Edit">✎</button>
             <button class="action-btn delete" onclick="removeNote('${item.id}')" title="Dismiss">✕</button>
           </div>
         </div>
@@ -1252,31 +1214,35 @@
     const input = document.getElementById('noteInput');
     const text = input.value.trim();
     if (!text) return;
-
     const items = load('notes', []);
     items.unshift({ id: genId(), text, created: TODAY });
     save('notes', items);
-
     input.value = '';
     renderNotes();
     renderStats();
   }
 
+  function editNote(id) {
+    const items = load('notes', []);
+    const item = items.find(i => i.id === id);
+    if (!item) return;
+    openEditModal('Edit Note', [
+      { key: 'text', label: 'Note', type: 'textarea', placeholder: 'Your note...' }
+    ], item, (result) => {
+      if (!result.text.trim()) return;
+      item.text = result.text.trim();
+      save('notes', items);
+      renderNotes();
+    });
+  }
+
   function removeNote(id) {
-    let items = load('notes', []);
-    items = items.filter(i => i.id !== id);
-    save('notes', items);
+    save('notes', load('notes', []).filter(i => i.id !== id));
     renderNotes();
     renderStats();
   }
 
   // ==================== WEEKLY RHYTHM ====================
-  function getWeeklyTasksForToday() {
-    const dayNum = new Date().getDay();
-    const tasks = load('weekly', []);
-    return tasks.filter(t => t.days && t.days.includes(dayNum));
-  }
-
   function renderWeekly() {
     const tasks = load('weekly', []);
     const dayNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
@@ -1293,6 +1259,7 @@
             ${t.days.map(d => `<span style="${d === todayNum ? 'color: var(--honey); font-weight: 700;' : ''}">${dayNames[d]}</span>`).join(' · ')}
           </span>
           <div class="item-actions" style="opacity: 1;">
+            <button class="action-btn edit" onclick="editWeekly('${t.id}')" title="Edit">✎</button>
             <button class="action-btn delete" onclick="removeWeekly('${t.id}')" title="Remove">✕</button>
           </div>
         </div>
@@ -1304,27 +1271,40 @@
     const text = document.getElementById('weeklyInput').value.trim();
     const selectedDays = [...document.querySelectorAll('#daySelector .day-chip.selected')].map(c => parseInt(c.dataset.day));
     if (!text || selectedDays.length === 0) return;
-
     const tasks = load('weekly', []);
     tasks.push({ id: genId(), text, days: selectedDays.sort() });
     save('weekly', tasks);
-
     document.getElementById('weeklyInput').value = '';
     document.querySelectorAll('#daySelector .day-chip').forEach(c => c.classList.remove('selected'));
     renderWeekly();
   }
 
+  function editWeekly(id) {
+    const tasks = load('weekly', []);
+    const task = tasks.find(t => t.id === id);
+    if (!task) return;
+    openEditModal('Edit Weekly Task', [
+      { key: 'text', label: 'Task', type: 'text', placeholder: 'Task description' },
+      { key: 'days', label: 'Days', type: 'days' }
+    ], task, (result) => {
+      if (!result.text.trim() || result.days.length === 0) return;
+      task.text = result.text.trim();
+      task.days = result.days;
+      save('weekly', tasks);
+      renderWeekly();
+    });
+  }
+
   function removeWeekly(id) {
-    let tasks = load('weekly', []);
-    tasks = tasks.filter(t => t.id !== id);
-    save('weekly', tasks);
+    save('weekly', load('weekly', []).filter(t => t.id !== id));
     renderWeekly();
   }
 
   // ==================== CAMPAIGNS ====================
+  let editingCampaignId = null;
+
   function renderCampaigns() {
     const items = load('campaigns', []);
-
     const grid = document.getElementById('campaignGrid');
     if (items.length === 0) {
       grid.innerHTML = '<div class="empty-state" style="grid-column: 1 / -1;"><div class="empty-state-icon">🚀</div>No campaigns yet. Add your first launch or campaign.</div>';
@@ -1332,7 +1312,6 @@
       grid.innerHTML = items.map(item => {
         const statusLabel = { planning: 'Planning', 'in-progress': 'In Progress', live: 'Live', completed: 'Completed' }[item.status] || item.status;
         const dates = [item.start ? formatDate(item.start) : '', item.end ? formatDate(item.end) : ''].filter(Boolean).join(' → ');
-
         return `
           <div class="campaign-card">
             <div style="display: flex; justify-content: space-between; align-items: start;">
@@ -1341,6 +1320,7 @@
                 <div class="campaign-dates">${dates}</div>
               </div>
               <div class="item-actions" style="opacity: 1;">
+                <button class="action-btn edit" onclick="editCampaign('${item.id}')" title="Edit">✎</button>
                 <button class="action-btn delete" onclick="removeCampaign('${item.id}')" title="Remove">✕</button>
               </div>
             </div>
@@ -1352,43 +1332,74 @@
     }
   }
 
-  function openCampaignModal() {
+  function openCampaignModal(existingId) {
+    editingCampaignId = existingId || null;
+    if (existingId) {
+      const items = load('campaigns', []);
+      const item = items.find(i => i.id === existingId);
+      if (!item) return;
+      document.getElementById('campaignModalTitle').textContent = 'Edit Campaign';
+      document.getElementById('campaignModalSaveBtn').textContent = 'Save Changes';
+      document.getElementById('campName').value = item.name;
+      document.getElementById('campStart').value = item.start || '';
+      document.getElementById('campEnd').value = item.end || '';
+      document.getElementById('campStatus').value = item.status;
+      document.getElementById('campNotes').value = item.notes || '';
+    } else {
+      document.getElementById('campaignModalTitle').textContent = 'Add Campaign / Launch';
+      document.getElementById('campaignModalSaveBtn').textContent = 'Add Campaign';
+      document.getElementById('campName').value = '';
+      document.getElementById('campStart').value = '';
+      document.getElementById('campEnd').value = '';
+      document.getElementById('campStatus').value = 'planning';
+      document.getElementById('campNotes').value = '';
+    }
     document.getElementById('campaignModal').classList.add('active');
   }
 
   function closeCampaignModal() {
     document.getElementById('campaignModal').classList.remove('active');
-    document.getElementById('campName').value = '';
-    document.getElementById('campStart').value = '';
-    document.getElementById('campEnd').value = '';
-    document.getElementById('campStatus').value = 'planning';
-    document.getElementById('campNotes').value = '';
+    editingCampaignId = null;
   }
 
-  function addCampaign() {
+  function editCampaign(id) {
+    openCampaignModal(id);
+  }
+
+  function saveCampaign() {
     const name = document.getElementById('campName').value.trim();
     if (!name) return;
 
     const items = load('campaigns', []);
-    items.push({
-      id: genId(),
-      name,
-      start: document.getElementById('campStart').value,
-      end: document.getElementById('campEnd').value,
-      status: document.getElementById('campStatus').value,
-      notes: document.getElementById('campNotes').value.trim()
-    });
-    save('campaigns', items);
 
+    if (editingCampaignId) {
+      const item = items.find(i => i.id === editingCampaignId);
+      if (item) {
+        item.name = name;
+        item.start = document.getElementById('campStart').value;
+        item.end = document.getElementById('campEnd').value;
+        item.status = document.getElementById('campStatus').value;
+        item.notes = document.getElementById('campNotes').value.trim();
+      }
+    } else {
+      items.push({
+        id: genId(),
+        name,
+        start: document.getElementById('campStart').value,
+        end: document.getElementById('campEnd').value,
+        status: document.getElementById('campStatus').value,
+        notes: document.getElementById('campNotes').value.trim()
+      });
+    }
+
+    save('campaigns', items);
     closeCampaignModal();
     renderCampaigns();
     renderStats();
   }
 
   function removeCampaign(id) {
-    let items = load('campaigns', []);
-    items = items.filter(i => i.id !== id);
-    save('campaigns', items);
+    save('campaigns', load('campaigns', []).filter(i => i.id !== id));
     renderCampaigns();
     renderStats();
   }
@@ -1434,37 +1445,19 @@
     });
   });
 
-  // Day chip toggle
   document.querySelectorAll('#daySelector .day-chip').forEach(chip => {
     chip.addEventListener('click', () => chip.classList.toggle('selected'));
   });
 
-  // Close modal on overlay click
-  document.getElementById('campaignModal').addEventListener('click', (e) => {
-    if (e.target === e.currentTarget) closeCampaignModal();
-  });
-
-  // ==================== UTILS ====================
-  function escHtml(str) {
-    const div = document.createElement('div');
-    div.textContent = str;
-    return div.innerHTML;
-  }
+  // Close modals on overlay click
+  document.getElementById('editModal').addEventListener('click', (e) => { if (e.target === e.currentTarget) closeEditModal(); });
+  document.getElementById('campaignModal').addEventListener('click', (e) => { if (e.target === e.currentTarget) closeCampaignModal(); });
 
   // ==================== INIT ====================
   function init() {
-    // Set header date
-    const now = new Date();
-    document.getElementById('headerDate').textContent = now.toLocaleDateString('en-US', {
+    document.getElementById('headerDate').textContent = new Date().toLocaleDateString('en-US', {
       weekday: 'long', month: 'long', day: 'numeric', year: 'numeric'
     });
-
-    // Set default date inputs to next week
-    const nextWeek = new Date(now.getTime() + 7 * 24 * 60 * 60 * 1000).toISOString().split('T')[0];
-    document.getElementById('waitingDate').value = '';
-    document.getElementById('deadlineDate').value = '';
-
-    // Render everything
     renderDailyTasks();
     renderWaiting();
     renderDeadlines();
@@ -1476,6 +1469,5 @@
 
   init();
 </script>
-
 </body>
 </html>
