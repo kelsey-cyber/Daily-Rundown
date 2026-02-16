@@ -1,0 +1,1481 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Daily Rundown — Nectar Life</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Fraunces:opsz,wght@9..144,300;9..144,500;9..144,700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --honey: #E8A838;
+    --honey-light: #FFF3DC;
+    --honey-glow: #F5C96320;
+    --warm-bg: #FFFBF5;
+    --warm-card: #FFFFFF;
+    --warm-border: #F0E6D6;
+    --text-primary: #2C2418;
+    --text-secondary: #7A6B57;
+    --text-muted: #B0A393;
+    --green: #5B9A6F;
+    --green-light: #EBF5EE;
+    --red: #C4554D;
+    --red-light: #FCEEED;
+    --orange: #D68C3A;
+    --orange-light: #FFF0DB;
+    --blue: #5B7FA6;
+    --blue-light: #EDF3F9;
+    --purple: #8B6FA6;
+    --purple-light: #F3EFF8;
+    --shadow-sm: 0 1px 3px rgba(44,36,24,0.06);
+    --shadow-md: 0 4px 12px rgba(44,36,24,0.08);
+    --shadow-lg: 0 8px 30px rgba(44,36,24,0.10);
+    --radius: 12px;
+    --radius-sm: 8px;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--warm-bg);
+    color: var(--text-primary);
+    line-height: 1.5;
+    min-height: 100vh;
+  }
+
+  /* HEADER */
+  .header {
+    background: linear-gradient(135deg, #2C2418 0%, #3D3225 100%);
+    padding: 24px 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+
+  .header-left {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .header-icon {
+    width: 40px;
+    height: 40px;
+    background: var(--honey);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+  }
+
+  .header h1 {
+    font-family: 'Fraunces', serif;
+    font-weight: 500;
+    font-size: 22px;
+    color: #FFF;
+    letter-spacing: -0.3px;
+  }
+
+  .header-date {
+    color: var(--honey);
+    font-size: 14px;
+    font-weight: 500;
+  }
+
+  /* NAV TABS */
+  .nav-tabs {
+    display: flex;
+    gap: 4px;
+    padding: 16px 32px 0;
+    border-bottom: 1px solid var(--warm-border);
+    background: var(--warm-card);
+    overflow-x: auto;
+  }
+
+  .nav-tab {
+    padding: 10px 18px;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text-secondary);
+    border: none;
+    background: none;
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    transition: all 0.2s;
+    white-space: nowrap;
+    font-family: 'DM Sans', sans-serif;
+  }
+
+  .nav-tab:hover { color: var(--text-primary); }
+  .nav-tab.active {
+    color: var(--honey);
+    border-bottom-color: var(--honey);
+  }
+
+  /* MAIN LAYOUT */
+  .main {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 24px;
+  }
+
+  .panel { display: none; }
+  .panel.active { display: block; }
+
+  /* CARDS */
+  .card {
+    background: var(--warm-card);
+    border: 1px solid var(--warm-border);
+    border-radius: var(--radius);
+    padding: 20px;
+    margin-bottom: 16px;
+    box-shadow: var(--shadow-sm);
+    transition: box-shadow 0.2s;
+  }
+
+  .card:hover { box-shadow: var(--shadow-md); }
+
+  .card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 16px;
+  }
+
+  .card-title {
+    font-family: 'Fraunces', serif;
+    font-size: 18px;
+    font-weight: 500;
+    color: var(--text-primary);
+  }
+
+  .card-count {
+    font-size: 12px;
+    font-weight: 600;
+    padding: 3px 10px;
+    border-radius: 20px;
+    background: var(--honey-light);
+    color: var(--orange);
+  }
+
+  /* CHECKLIST ITEMS */
+  .checklist-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 12px;
+    border-radius: var(--radius-sm);
+    transition: background 0.15s;
+    cursor: pointer;
+  }
+
+  .checklist-item:hover { background: var(--honey-glow); }
+
+  .checklist-item.checked .check-label {
+    text-decoration: line-through;
+    color: var(--text-muted);
+  }
+
+  .check-box {
+    width: 20px;
+    height: 20px;
+    border: 2px solid var(--warm-border);
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    transition: all 0.2s;
+    cursor: pointer;
+    background: transparent;
+    padding: 0;
+  }
+
+  .check-box:hover { border-color: var(--honey); }
+
+  .checklist-item.checked .check-box {
+    background: var(--green);
+    border-color: var(--green);
+  }
+
+  .check-box svg {
+    width: 12px;
+    height: 12px;
+    opacity: 0;
+    transition: opacity 0.2s;
+  }
+
+  .checklist-item.checked .check-box svg { opacity: 1; }
+
+  .check-label {
+    font-size: 14px;
+    color: var(--text-primary);
+    flex: 1;
+  }
+
+  .check-time {
+    font-size: 12px;
+    color: var(--text-muted);
+  }
+
+  /* ADD ITEM ROW */
+  .add-row {
+    display: flex;
+    gap: 8px;
+    margin-top: 12px;
+    padding-top: 12px;
+    border-top: 1px solid var(--warm-border);
+  }
+
+  .add-input {
+    flex: 1;
+    padding: 8px 12px;
+    border: 1px solid var(--warm-border);
+    border-radius: var(--radius-sm);
+    font-size: 14px;
+    font-family: 'DM Sans', sans-serif;
+    background: var(--warm-bg);
+    outline: none;
+    transition: border-color 0.2s;
+  }
+
+  .add-input:focus { border-color: var(--honey); }
+
+  .add-input::placeholder { color: var(--text-muted); }
+
+  .add-btn {
+    padding: 8px 16px;
+    background: var(--honey);
+    color: #FFF;
+    border: none;
+    border-radius: var(--radius-sm);
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    font-family: 'DM Sans', sans-serif;
+    transition: background 0.2s;
+  }
+
+  .add-btn:hover { background: #D69A2E; }
+
+  /* SELECT */
+  .add-select {
+    padding: 8px 12px;
+    border: 1px solid var(--warm-border);
+    border-radius: var(--radius-sm);
+    font-size: 13px;
+    font-family: 'DM Sans', sans-serif;
+    background: var(--warm-bg);
+    outline: none;
+    color: var(--text-primary);
+  }
+
+  .add-select:focus { border-color: var(--honey); }
+
+  /* DATE INPUT */
+  .add-date {
+    padding: 8px 12px;
+    border: 1px solid var(--warm-border);
+    border-radius: var(--radius-sm);
+    font-size: 13px;
+    font-family: 'DM Sans', sans-serif;
+    background: var(--warm-bg);
+    outline: none;
+    color: var(--text-primary);
+  }
+
+  .add-date:focus { border-color: var(--honey); }
+
+  /* WAITING ON ITEMS */
+  .waiting-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px;
+    border-radius: var(--radius-sm);
+    border-left: 3px solid var(--warm-border);
+    margin-bottom: 8px;
+    background: var(--warm-bg);
+    transition: all 0.15s;
+  }
+
+  .waiting-item:hover { border-left-color: var(--honey); }
+
+  .waiting-item.overdue { border-left-color: var(--red); background: var(--red-light); }
+  .waiting-item.due-soon { border-left-color: var(--orange); background: var(--orange-light); }
+
+  .waiting-person {
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    padding: 3px 8px;
+    border-radius: 4px;
+    flex-shrink: 0;
+    min-width: 60px;
+    text-align: center;
+  }
+
+  .person-claire { background: var(--purple-light); color: var(--purple); }
+  .person-aly { background: var(--blue-light); color: var(--blue); }
+  .person-wknd { background: var(--green-light); color: var(--green); }
+  .person-other { background: var(--honey-light); color: var(--orange); }
+
+  .waiting-text {
+    flex: 1;
+    font-size: 14px;
+  }
+
+  .waiting-date {
+    font-size: 12px;
+    color: var(--text-muted);
+    flex-shrink: 0;
+  }
+
+  .waiting-date.overdue { color: var(--red); font-weight: 600; }
+  .waiting-date.due-soon { color: var(--orange); font-weight: 600; }
+
+  .item-actions {
+    display: flex;
+    gap: 4px;
+    opacity: 0;
+    transition: opacity 0.15s;
+  }
+
+  .waiting-item:hover .item-actions,
+  .deadline-item:hover .item-actions,
+  .note-item:hover .item-actions,
+  .campaign-card:hover .item-actions { opacity: 1; }
+
+  .action-btn {
+    width: 24px;
+    height: 24px;
+    border: none;
+    background: none;
+    cursor: pointer;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-muted);
+    transition: all 0.15s;
+    padding: 0;
+  }
+
+  .action-btn:hover { background: var(--warm-border); color: var(--text-primary); }
+  .action-btn.delete:hover { background: var(--red-light); color: var(--red); }
+
+  /* DEADLINES */
+  .deadline-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px;
+    border-radius: var(--radius-sm);
+    margin-bottom: 8px;
+    background: var(--warm-bg);
+    transition: all 0.15s;
+  }
+
+  .deadline-countdown {
+    font-family: 'Fraunces', serif;
+    font-size: 22px;
+    font-weight: 700;
+    min-width: 48px;
+    text-align: center;
+    line-height: 1;
+  }
+
+  .deadline-countdown.overdue { color: var(--red); }
+  .deadline-countdown.urgent { color: var(--orange); }
+  .deadline-countdown.ok { color: var(--green); }
+
+  .deadline-countdown-unit {
+    font-size: 10px;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 500;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .deadline-info { flex: 1; }
+
+  .deadline-title {
+    font-size: 14px;
+    font-weight: 500;
+  }
+
+  .deadline-date {
+    font-size: 12px;
+    color: var(--text-muted);
+  }
+
+  /* NOTES */
+  .note-item {
+    padding: 12px;
+    border-radius: var(--radius-sm);
+    margin-bottom: 8px;
+    background: var(--warm-bg);
+    position: relative;
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .note-text {
+    flex: 1;
+    font-size: 14px;
+    white-space: pre-wrap;
+  }
+
+  .note-meta {
+    font-size: 11px;
+    color: var(--text-muted);
+    margin-top: 6px;
+  }
+
+  .add-textarea {
+    flex: 1;
+    padding: 8px 12px;
+    border: 1px solid var(--warm-border);
+    border-radius: var(--radius-sm);
+    font-size: 14px;
+    font-family: 'DM Sans', sans-serif;
+    background: var(--warm-bg);
+    outline: none;
+    resize: vertical;
+    min-height: 36px;
+    transition: border-color 0.2s;
+  }
+
+  .add-textarea:focus { border-color: var(--honey); }
+
+  /* WEEKLY TASKS */
+  .week-day-section {
+    margin-bottom: 20px;
+  }
+
+  .week-day-label {
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    color: var(--text-muted);
+    margin-bottom: 8px;
+    padding-left: 4px;
+  }
+
+  .week-day-label.today {
+    color: var(--honey);
+  }
+
+  .day-select-group {
+    display: flex;
+    gap: 4px;
+    flex-wrap: wrap;
+  }
+
+  .day-chip {
+    padding: 4px 10px;
+    border: 1px solid var(--warm-border);
+    border-radius: 20px;
+    font-size: 12px;
+    cursor: pointer;
+    background: transparent;
+    color: var(--text-secondary);
+    font-family: 'DM Sans', sans-serif;
+    transition: all 0.15s;
+  }
+
+  .day-chip:hover { border-color: var(--honey); }
+  .day-chip.selected { background: var(--honey); color: #FFF; border-color: var(--honey); }
+
+  /* CAMPAIGN STATUS CARDS */
+  .campaigns-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 16px;
+  }
+
+  .campaign-card {
+    background: var(--warm-bg);
+    border: 1px solid var(--warm-border);
+    border-radius: var(--radius);
+    padding: 16px;
+    position: relative;
+    transition: all 0.2s;
+  }
+
+  .campaign-card:hover {
+    box-shadow: var(--shadow-md);
+    border-color: var(--honey);
+  }
+
+  .campaign-name {
+    font-family: 'Fraunces', serif;
+    font-size: 16px;
+    font-weight: 500;
+    margin-bottom: 4px;
+  }
+
+  .campaign-dates {
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-bottom: 12px;
+  }
+
+  .campaign-status {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 600;
+    padding: 3px 10px;
+    border-radius: 20px;
+    margin-bottom: 12px;
+  }
+
+  .status-planning { background: var(--blue-light); color: var(--blue); }
+  .status-in-progress { background: var(--orange-light); color: var(--orange); }
+  .status-live { background: var(--green-light); color: var(--green); }
+  .status-completed { background: var(--warm-border); color: var(--text-muted); }
+
+  .campaign-notes {
+    font-size: 13px;
+    color: var(--text-secondary);
+    border-top: 1px solid var(--warm-border);
+    padding-top: 10px;
+    white-space: pre-wrap;
+  }
+
+  /* PROGRESS BAR */
+  .progress-bar {
+    height: 4px;
+    background: var(--warm-border);
+    border-radius: 2px;
+    overflow: hidden;
+    margin: 12px 0;
+  }
+
+  .progress-fill {
+    height: 100%;
+    background: var(--honey);
+    border-radius: 2px;
+    transition: width 0.4s ease;
+  }
+
+  /* STATS ROW */
+  .stats-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 12px;
+    margin-bottom: 24px;
+  }
+
+  .stat-card {
+    background: var(--warm-card);
+    border: 1px solid var(--warm-border);
+    border-radius: var(--radius);
+    padding: 16px;
+    text-align: center;
+    box-shadow: var(--shadow-sm);
+  }
+
+  .stat-value {
+    font-family: 'Fraunces', serif;
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--honey);
+  }
+
+  .stat-label {
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-top: 2px;
+  }
+
+  /* EMPTY STATE */
+  .empty-state {
+    text-align: center;
+    padding: 32px 16px;
+    color: var(--text-muted);
+    font-size: 14px;
+  }
+
+  .empty-state-icon {
+    font-size: 32px;
+    margin-bottom: 8px;
+  }
+
+  /* MODAL */
+  .modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(44,36,24,0.4);
+    z-index: 200;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+  }
+
+  .modal-overlay.active { display: flex; }
+
+  .modal {
+    background: var(--warm-card);
+    border-radius: var(--radius);
+    padding: 24px;
+    max-width: 480px;
+    width: 100%;
+    box-shadow: var(--shadow-lg);
+  }
+
+  .modal-title {
+    font-family: 'Fraunces', serif;
+    font-size: 18px;
+    margin-bottom: 16px;
+  }
+
+  .modal-field {
+    margin-bottom: 12px;
+  }
+
+  .modal-label {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text-secondary);
+    margin-bottom: 4px;
+    display: block;
+  }
+
+  .modal-input {
+    width: 100%;
+    padding: 8px 12px;
+    border: 1px solid var(--warm-border);
+    border-radius: var(--radius-sm);
+    font-size: 14px;
+    font-family: 'DM Sans', sans-serif;
+    outline: none;
+  }
+
+  .modal-input:focus { border-color: var(--honey); }
+
+  .modal-actions {
+    display: flex;
+    gap: 8px;
+    justify-content: flex-end;
+    margin-top: 20px;
+  }
+
+  .modal-cancel {
+    padding: 8px 16px;
+    background: none;
+    border: 1px solid var(--warm-border);
+    border-radius: var(--radius-sm);
+    font-size: 13px;
+    cursor: pointer;
+    font-family: 'DM Sans', sans-serif;
+    color: var(--text-secondary);
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 768px) {
+    .header { padding: 16px 20px; }
+    .nav-tabs { padding: 12px 20px 0; }
+    .main { padding: 16px; }
+    .campaigns-grid { grid-template-columns: 1fr; }
+    .stats-row { grid-template-columns: repeat(2, 1fr); }
+    .add-row { flex-wrap: wrap; }
+    .add-select, .add-date { flex: 1; min-width: 100px; }
+  }
+
+  /* ANIMATIONS */
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .card { animation: fadeIn 0.3s ease; }
+
+  /* Reset button */
+  .reset-btn {
+    padding: 6px 14px;
+    background: none;
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: var(--radius-sm);
+    font-size: 12px;
+    cursor: pointer;
+    font-family: 'DM Sans', sans-serif;
+    color: rgba(255,255,255,0.6);
+    transition: all 0.2s;
+  }
+
+  .reset-btn:hover {
+    border-color: var(--honey);
+    color: var(--honey);
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <div class="header-left">
+    <div class="header-icon">🍯</div>
+    <div>
+      <h1>Daily Rundown</h1>
+      <div class="header-date" id="headerDate"></div>
+    </div>
+  </div>
+  <button class="reset-btn" onclick="resetDailyChecklist()">Reset Daily Tasks</button>
+</div>
+
+<!-- NAV -->
+<div class="nav-tabs">
+  <button class="nav-tab active" data-panel="dashboard">Dashboard</button>
+  <button class="nav-tab" data-panel="daily">Daily Tasks</button>
+  <button class="nav-tab" data-panel="waiting">Waiting On</button>
+  <button class="nav-tab" data-panel="deadlines">Deadlines</button>
+  <button class="nav-tab" data-panel="notes">Notes & Follow-ups</button>
+  <button class="nav-tab" data-panel="weekly">Weekly Rhythm</button>
+  <button class="nav-tab" data-panel="campaigns">Campaigns</button>
+</div>
+
+<!-- MAIN -->
+<div class="main">
+
+  <!-- ========== DASHBOARD ========== -->
+  <div class="panel active" id="panel-dashboard">
+    <div class="stats-row" id="statsRow"></div>
+
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">Today's Tasks</div>
+          <div class="card-count" id="dashDailyCount">0/0</div>
+        </div>
+        <div class="progress-bar"><div class="progress-fill" id="dashDailyProgress" style="width: 0%"></div></div>
+        <div id="dashDailyList"></div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">Waiting On</div>
+          <div class="card-count" id="dashWaitingCount">0</div>
+        </div>
+        <div id="dashWaitingList"></div>
+      </div>
+    </div>
+
+    <div class="card" style="margin-top: 16px;">
+      <div class="card-header">
+        <div class="card-title">Upcoming Deadlines</div>
+      </div>
+      <div id="dashDeadlinesList"></div>
+    </div>
+  </div>
+
+  <!-- ========== DAILY TASKS ========== -->
+  <div class="panel" id="panel-daily">
+    <div class="card">
+      <div class="card-header">
+        <div class="card-title">Daily Non-Negotiables</div>
+        <div class="card-count" id="dailyCount">0/0</div>
+      </div>
+      <div class="progress-bar"><div class="progress-fill" id="dailyProgress" style="width: 0%"></div></div>
+      <div id="dailyList"></div>
+      <div class="add-row">
+        <input type="text" class="add-input" id="dailyInput" placeholder="Add a daily task..." onkeydown="if(event.key==='Enter') addDailyTask()">
+        <button class="add-btn" onclick="addDailyTask()">Add</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== WAITING ON ========== -->
+  <div class="panel" id="panel-waiting">
+    <div class="card">
+      <div class="card-header">
+        <div class="card-title">Waiting On Others</div>
+        <div class="card-count" id="waitingCount">0</div>
+      </div>
+      <div id="waitingList"></div>
+      <div class="add-row">
+        <select class="add-select" id="waitingPerson">
+          <option value="Claire">Claire</option>
+          <option value="Aly">Aly</option>
+          <option value="WKND">WKND</option>
+          <option value="Other">Other</option>
+        </select>
+        <input type="text" class="add-input" id="waitingInput" placeholder="What are you waiting on?" onkeydown="if(event.key==='Enter') addWaitingItem()">
+        <input type="date" class="add-date" id="waitingDate">
+        <button class="add-btn" onclick="addWaitingItem()">Add</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== DEADLINES ========== -->
+  <div class="panel" id="panel-deadlines">
+    <div class="card">
+      <div class="card-header">
+        <div class="card-title">Upcoming Deadlines</div>
+        <div class="card-count" id="deadlineCount">0</div>
+      </div>
+      <div id="deadlineList"></div>
+      <div class="add-row">
+        <input type="text" class="add-input" id="deadlineInput" placeholder="What's the deadline for?" onkeydown="if(event.key==='Enter') addDeadline()">
+        <input type="date" class="add-date" id="deadlineDate">
+        <button class="add-btn" onclick="addDeadline()">Add</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== NOTES ========== -->
+  <div class="panel" id="panel-notes">
+    <div class="card">
+      <div class="card-header">
+        <div class="card-title">Notes & Follow-ups</div>
+        <div class="card-count" id="noteCount">0</div>
+      </div>
+      <div id="noteList"></div>
+      <div class="add-row">
+        <textarea class="add-textarea" id="noteInput" placeholder="Add a note or follow-up..." rows="1" onkeydown="if(event.key==='Enter' && !event.shiftKey) { event.preventDefault(); addNote(); }"></textarea>
+        <button class="add-btn" onclick="addNote()">Add</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== WEEKLY RHYTHM ========== -->
+  <div class="panel" id="panel-weekly">
+    <div class="card">
+      <div class="card-header">
+        <div class="card-title">Weekly Rhythm Tasks</div>
+      </div>
+      <p style="font-size: 13px; color: var(--text-secondary); margin-bottom: 16px;">Tasks that repeat on specific days each week. These show up automatically in your daily view.</p>
+      <div id="weeklyList"></div>
+      <div class="add-row" style="flex-wrap: wrap; gap: 8px;">
+        <input type="text" class="add-input" id="weeklyInput" placeholder="Add a weekly task..." style="min-width: 200px;">
+        <div class="day-select-group" id="daySelector">
+          <button class="day-chip" data-day="0">Sun</button>
+          <button class="day-chip" data-day="1">Mon</button>
+          <button class="day-chip" data-day="2">Tue</button>
+          <button class="day-chip" data-day="3">Wed</button>
+          <button class="day-chip" data-day="4">Thu</button>
+          <button class="day-chip" data-day="5">Fri</button>
+          <button class="day-chip" data-day="6">Sat</button>
+        </div>
+        <button class="add-btn" onclick="addWeeklyTask()">Add</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== CAMPAIGNS ========== -->
+  <div class="panel" id="panel-campaigns">
+    <div class="card">
+      <div class="card-header">
+        <div class="card-title">Active Campaigns & Launches</div>
+        <button class="add-btn" onclick="openCampaignModal()">+ Add Campaign</button>
+      </div>
+      <div class="campaigns-grid" id="campaignGrid"></div>
+    </div>
+  </div>
+
+</div>
+
+<!-- CAMPAIGN MODAL -->
+<div class="modal-overlay" id="campaignModal">
+  <div class="modal">
+    <div class="modal-title">Add Campaign / Launch</div>
+    <div class="modal-field">
+      <label class="modal-label">Name</label>
+      <input type="text" class="modal-input" id="campName" placeholder="e.g., Easter Collection 2026">
+    </div>
+    <div class="modal-field">
+      <label class="modal-label">Start Date</label>
+      <input type="date" class="modal-input" id="campStart">
+    </div>
+    <div class="modal-field">
+      <label class="modal-label">End / Launch Date</label>
+      <input type="date" class="modal-input" id="campEnd">
+    </div>
+    <div class="modal-field">
+      <label class="modal-label">Status</label>
+      <select class="modal-input" id="campStatus">
+        <option value="planning">Planning</option>
+        <option value="in-progress">In Progress</option>
+        <option value="live">Live</option>
+        <option value="completed">Completed</option>
+      </select>
+    </div>
+    <div class="modal-field">
+      <label class="modal-label">Notes</label>
+      <textarea class="modal-input" id="campNotes" rows="3" placeholder="Key details, goals, blockers..."></textarea>
+    </div>
+    <div class="modal-actions">
+      <button class="modal-cancel" onclick="closeCampaignModal()">Cancel</button>
+      <button class="add-btn" onclick="addCampaign()">Add Campaign</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  // ==================== DATA LAYER ====================
+  // Uses localStorage with date-based keys for daily reset
+
+  const STORAGE_PREFIX = 'nectar_ops_';
+  const TODAY = new Date().toISOString().split('T')[0];
+
+  function save(key, data) {
+    localStorage.setItem(STORAGE_PREFIX + key, JSON.stringify(data));
+  }
+
+  function load(key, fallback = []) {
+    try {
+      const d = localStorage.getItem(STORAGE_PREFIX + key);
+      return d ? JSON.parse(d) : fallback;
+    } catch { return fallback; }
+  }
+
+  function genId() {
+    return Date.now().toString(36) + Math.random().toString(36).slice(2, 6);
+  }
+
+  // ==================== DATE HELPERS ====================
+  function formatDate(dateStr) {
+    if (!dateStr) return '';
+    const d = new Date(dateStr + 'T00:00:00');
+    return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+  }
+
+  function daysUntil(dateStr) {
+    if (!dateStr) return Infinity;
+    const target = new Date(dateStr + 'T00:00:00');
+    const today = new Date(TODAY + 'T00:00:00');
+    return Math.ceil((target - today) / (1000 * 60 * 60 * 24));
+  }
+
+  function getDayName(num) {
+    return ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'][num];
+  }
+
+  // ==================== DAILY TASKS ====================
+  function getDefaultDailyTasks() {
+    return [
+      { id: 'default1', text: 'Check Shopify inventory', checked: false },
+      { id: 'default2', text: 'Review performance metrics', checked: false },
+      { id: 'default3', text: 'Update marketing calendar', checked: false },
+      { id: 'default4', text: 'Check production communications', checked: false },
+    ];
+  }
+
+  function loadDailyTasks() {
+    const key = 'daily_' + TODAY;
+    let tasks = load(key, null);
+    if (!tasks) {
+      // Start with defaults + any custom tasks from yesterday or generic
+      const customTasks = load('daily_custom', []);
+      const weeklyForToday = getWeeklyTasksForToday();
+      tasks = [
+        ...getDefaultDailyTasks(),
+        ...customTasks.map(t => ({ ...t, checked: false })),
+        ...weeklyForToday.map(t => ({ id: 'weekly_' + t.id, text: '📅 ' + t.text, checked: false, isWeekly: true }))
+      ];
+      save(key, tasks);
+    }
+    return tasks;
+  }
+
+  function saveDailyTasks(tasks) {
+    save('daily_' + TODAY, tasks);
+  }
+
+  function renderDailyTasks() {
+    const tasks = loadDailyTasks();
+    const checked = tasks.filter(t => t.checked).length;
+    const total = tasks.length;
+    const pct = total > 0 ? Math.round((checked / total) * 100) : 0;
+
+    document.getElementById('dailyCount').textContent = `${checked}/${total}`;
+    document.getElementById('dailyProgress').style.width = pct + '%';
+
+    const list = document.getElementById('dailyList');
+    list.innerHTML = tasks.map(t => `
+      <div class="checklist-item ${t.checked ? 'checked' : ''}" onclick="toggleDaily('${t.id}')">
+        <button class="check-box">
+          <svg viewBox="0 0 12 12" fill="none" stroke="white" stroke-width="2">
+            <path d="M2 6l3 3 5-5"/>
+          </svg>
+        </button>
+        <span class="check-label">${escHtml(t.text)}</span>
+        ${!t.text.startsWith('📅') ? `<button class="action-btn delete" onclick="event.stopPropagation(); removeDailyTask('${t.id}')" title="Remove">✕</button>` : ''}
+      </div>
+    `).join('');
+
+    // Dashboard mirror
+    document.getElementById('dashDailyCount').textContent = `${checked}/${total}`;
+    document.getElementById('dashDailyProgress').style.width = pct + '%';
+    document.getElementById('dashDailyList').innerHTML = tasks.filter(t => !t.checked).slice(0, 5).map(t => `
+      <div class="checklist-item" style="padding: 6px 8px;">
+        <span class="check-label" style="font-size: 13px;">${escHtml(t.text)}</span>
+      </div>
+    `).join('') || '<div class="empty-state" style="padding: 12px;">All done! 🎉</div>';
+  }
+
+  function toggleDaily(id) {
+    const tasks = loadDailyTasks();
+    const task = tasks.find(t => t.id === id);
+    if (task) task.checked = !task.checked;
+    saveDailyTasks(tasks);
+    renderDailyTasks();
+    renderStats();
+  }
+
+  function addDailyTask() {
+    const input = document.getElementById('dailyInput');
+    const text = input.value.trim();
+    if (!text) return;
+
+    // Add to today
+    const tasks = loadDailyTasks();
+    const newTask = { id: genId(), text, checked: false };
+    tasks.push(newTask);
+    saveDailyTasks(tasks);
+
+    // Also save as custom recurring
+    const custom = load('daily_custom', []);
+    custom.push({ id: newTask.id, text });
+    save('daily_custom', custom);
+
+    input.value = '';
+    renderDailyTasks();
+    renderStats();
+  }
+
+  function removeDailyTask(id) {
+    let tasks = loadDailyTasks();
+    tasks = tasks.filter(t => t.id !== id);
+    saveDailyTasks(tasks);
+
+    let custom = load('daily_custom', []);
+    custom = custom.filter(t => t.id !== id);
+    save('daily_custom', custom);
+
+    renderDailyTasks();
+    renderStats();
+  }
+
+  function resetDailyChecklist() {
+    const tasks = loadDailyTasks();
+    tasks.forEach(t => t.checked = false);
+    saveDailyTasks(tasks);
+    renderDailyTasks();
+    renderStats();
+  }
+
+  // ==================== WAITING ON ====================
+  function renderWaiting() {
+    const items = load('waiting', []);
+
+    items.sort((a, b) => {
+      const da = daysUntil(a.date);
+      const db = daysUntil(b.date);
+      return da - db;
+    });
+
+    document.getElementById('waitingCount').textContent = items.length;
+
+    const list = document.getElementById('waitingList');
+    if (items.length === 0) {
+      list.innerHTML = '<div class="empty-state"><div class="empty-state-icon">✓</div>Not waiting on anything</div>';
+    } else {
+      list.innerHTML = items.map(item => {
+        const days = daysUntil(item.date);
+        const statusClass = days < 0 ? 'overdue' : days <= 2 ? 'due-soon' : '';
+        const dateClass = days < 0 ? 'overdue' : days <= 2 ? 'due-soon' : '';
+        const personClass = 'person-' + item.person.toLowerCase();
+        const dateLabel = !item.date ? '' : days < 0 ? `${Math.abs(days)}d overdue` : days === 0 ? 'Today' : days === 1 ? 'Tomorrow' : `${formatDate(item.date)}`;
+
+        return `
+          <div class="waiting-item ${statusClass}">
+            <span class="waiting-person ${personClass}">${escHtml(item.person)}</span>
+            <span class="waiting-text">${escHtml(item.text)}</span>
+            <span class="waiting-date ${dateClass}">${dateLabel}</span>
+            <div class="item-actions">
+              <button class="action-btn delete" onclick="removeWaiting('${item.id}')" title="Done / Remove">✕</button>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    // Dashboard mirror - show overdue & due soon first
+    const urgent = items.filter(i => daysUntil(i.date) <= 3).slice(0, 4);
+    document.getElementById('dashWaitingCount').textContent = items.length;
+    document.getElementById('dashWaitingList').innerHTML = urgent.length > 0 ? urgent.map(item => {
+      const days = daysUntil(item.date);
+      const personClass = 'person-' + item.person.toLowerCase();
+      const dateLabel = days < 0 ? `${Math.abs(days)}d overdue` : days === 0 ? 'Today' : `${days}d`;
+      return `
+        <div style="display: flex; align-items: center; gap: 8px; padding: 6px 0; font-size: 13px;">
+          <span class="waiting-person ${personClass}" style="font-size: 10px;">${escHtml(item.person)}</span>
+          <span style="flex: 1;">${escHtml(item.text)}</span>
+          <span style="font-size: 11px; color: ${days < 0 ? 'var(--red)' : 'var(--orange)'}; font-weight: 600;">${dateLabel}</span>
+        </div>
+      `;
+    }).join('') : '<div class="empty-state" style="padding: 12px;">Nothing urgent</div>';
+  }
+
+  function addWaitingItem() {
+    const person = document.getElementById('waitingPerson').value;
+    const text = document.getElementById('waitingInput').value.trim();
+    const date = document.getElementById('waitingDate').value;
+    if (!text) return;
+
+    const items = load('waiting', []);
+    items.push({ id: genId(), person, text, date, created: TODAY });
+    save('waiting', items);
+
+    document.getElementById('waitingInput').value = '';
+    document.getElementById('waitingDate').value = '';
+    renderWaiting();
+    renderStats();
+  }
+
+  function removeWaiting(id) {
+    let items = load('waiting', []);
+    items = items.filter(i => i.id !== id);
+    save('waiting', items);
+    renderWaiting();
+    renderStats();
+  }
+
+  // ==================== DEADLINES ====================
+  function renderDeadlines() {
+    const items = load('deadlines', []);
+    items.sort((a, b) => daysUntil(a.date) - daysUntil(b.date));
+
+    document.getElementById('deadlineCount').textContent = items.length;
+
+    const list = document.getElementById('deadlineList');
+    if (items.length === 0) {
+      list.innerHTML = '<div class="empty-state"><div class="empty-state-icon">📅</div>No upcoming deadlines</div>';
+    } else {
+      list.innerHTML = items.map(item => {
+        const days = daysUntil(item.date);
+        const countClass = days < 0 ? 'overdue' : days <= 3 ? 'urgent' : 'ok';
+        const countText = days < 0 ? Math.abs(days) : days;
+        const unitText = days < 0 ? 'OVERDUE' : days === 0 ? 'TODAY' : days === 1 ? 'DAY' : 'DAYS';
+
+        return `
+          <div class="deadline-item">
+            <div class="deadline-countdown ${countClass}">
+              ${countText}
+              <div class="deadline-countdown-unit">${unitText}</div>
+            </div>
+            <div class="deadline-info">
+              <div class="deadline-title">${escHtml(item.text)}</div>
+              <div class="deadline-date">${formatDate(item.date)}</div>
+            </div>
+            <div class="item-actions">
+              <button class="action-btn delete" onclick="removeDeadline('${item.id}')" title="Done / Remove">✕</button>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    // Dashboard mirror
+    const upcoming = items.filter(i => daysUntil(i.date) >= 0).slice(0, 4);
+    document.getElementById('dashDeadlinesList').innerHTML = upcoming.length > 0 ? upcoming.map(item => {
+      const days = daysUntil(item.date);
+      const countClass = days <= 3 ? 'urgent' : 'ok';
+      return `
+        <div style="display: flex; align-items: center; gap: 12px; padding: 8px 0;">
+          <div class="deadline-countdown ${countClass}" style="font-size: 18px; min-width: 36px;">
+            ${days}<div class="deadline-countdown-unit">${days === 0 ? 'TODAY' : days === 1 ? 'DAY' : 'DAYS'}</div>
+          </div>
+          <span style="font-size: 13px;">${escHtml(item.text)} · ${formatDate(item.date)}</span>
+        </div>
+      `;
+    }).join('') : '<div class="empty-state" style="padding: 12px;">No upcoming deadlines</div>';
+  }
+
+  function addDeadline() {
+    const text = document.getElementById('deadlineInput').value.trim();
+    const date = document.getElementById('deadlineDate').value;
+    if (!text || !date) return;
+
+    const items = load('deadlines', []);
+    items.push({ id: genId(), text, date });
+    save('deadlines', items);
+
+    document.getElementById('deadlineInput').value = '';
+    document.getElementById('deadlineDate').value = '';
+    renderDeadlines();
+    renderStats();
+  }
+
+  function removeDeadline(id) {
+    let items = load('deadlines', []);
+    items = items.filter(i => i.id !== id);
+    save('deadlines', items);
+    renderDeadlines();
+    renderStats();
+  }
+
+  // ==================== NOTES ====================
+  function renderNotes() {
+    const items = load('notes', []);
+    document.getElementById('noteCount').textContent = items.length;
+
+    const list = document.getElementById('noteList');
+    if (items.length === 0) {
+      list.innerHTML = '<div class="empty-state"><div class="empty-state-icon">📝</div>No notes yet</div>';
+    } else {
+      list.innerHTML = items.map(item => `
+        <div class="note-item">
+          <div style="flex: 1;">
+            <div class="note-text">${escHtml(item.text)}</div>
+            <div class="note-meta">${formatDate(item.created)}</div>
+          </div>
+          <div class="item-actions">
+            <button class="action-btn delete" onclick="removeNote('${item.id}')" title="Dismiss">✕</button>
+          </div>
+        </div>
+      `).join('');
+    }
+  }
+
+  function addNote() {
+    const input = document.getElementById('noteInput');
+    const text = input.value.trim();
+    if (!text) return;
+
+    const items = load('notes', []);
+    items.unshift({ id: genId(), text, created: TODAY });
+    save('notes', items);
+
+    input.value = '';
+    renderNotes();
+    renderStats();
+  }
+
+  function removeNote(id) {
+    let items = load('notes', []);
+    items = items.filter(i => i.id !== id);
+    save('notes', items);
+    renderNotes();
+    renderStats();
+  }
+
+  // ==================== WEEKLY RHYTHM ====================
+  function getWeeklyTasksForToday() {
+    const dayNum = new Date().getDay();
+    const tasks = load('weekly', []);
+    return tasks.filter(t => t.days && t.days.includes(dayNum));
+  }
+
+  function renderWeekly() {
+    const tasks = load('weekly', []);
+    const dayNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+    const todayNum = new Date().getDay();
+
+    const list = document.getElementById('weeklyList');
+    if (tasks.length === 0) {
+      list.innerHTML = '<div class="empty-state"><div class="empty-state-icon">🗓️</div>No weekly tasks yet. Add tasks and assign them to days.</div>';
+    } else {
+      list.innerHTML = tasks.map(t => `
+        <div class="waiting-item" style="border-left-color: var(--honey);">
+          <span class="waiting-text" style="flex: 1; font-weight: 500;">${escHtml(t.text)}</span>
+          <span style="font-size: 12px; color: var(--text-muted);">
+            ${t.days.map(d => `<span style="${d === todayNum ? 'color: var(--honey); font-weight: 700;' : ''}">${dayNames[d]}</span>`).join(' · ')}
+          </span>
+          <div class="item-actions" style="opacity: 1;">
+            <button class="action-btn delete" onclick="removeWeekly('${t.id}')" title="Remove">✕</button>
+          </div>
+        </div>
+      `).join('');
+    }
+  }
+
+  function addWeeklyTask() {
+    const text = document.getElementById('weeklyInput').value.trim();
+    const selectedDays = [...document.querySelectorAll('#daySelector .day-chip.selected')].map(c => parseInt(c.dataset.day));
+    if (!text || selectedDays.length === 0) return;
+
+    const tasks = load('weekly', []);
+    tasks.push({ id: genId(), text, days: selectedDays.sort() });
+    save('weekly', tasks);
+
+    document.getElementById('weeklyInput').value = '';
+    document.querySelectorAll('#daySelector .day-chip').forEach(c => c.classList.remove('selected'));
+    renderWeekly();
+  }
+
+  function removeWeekly(id) {
+    let tasks = load('weekly', []);
+    tasks = tasks.filter(t => t.id !== id);
+    save('weekly', tasks);
+    renderWeekly();
+  }
+
+  // ==================== CAMPAIGNS ====================
+  function renderCampaigns() {
+    const items = load('campaigns', []);
+
+    const grid = document.getElementById('campaignGrid');
+    if (items.length === 0) {
+      grid.innerHTML = '<div class="empty-state" style="grid-column: 1 / -1;"><div class="empty-state-icon">🚀</div>No campaigns yet. Add your first launch or campaign.</div>';
+    } else {
+      grid.innerHTML = items.map(item => {
+        const statusLabel = { planning: 'Planning', 'in-progress': 'In Progress', live: 'Live', completed: 'Completed' }[item.status] || item.status;
+        const dates = [item.start ? formatDate(item.start) : '', item.end ? formatDate(item.end) : ''].filter(Boolean).join(' → ');
+
+        return `
+          <div class="campaign-card">
+            <div style="display: flex; justify-content: space-between; align-items: start;">
+              <div>
+                <div class="campaign-name">${escHtml(item.name)}</div>
+                <div class="campaign-dates">${dates}</div>
+              </div>
+              <div class="item-actions" style="opacity: 1;">
+                <button class="action-btn delete" onclick="removeCampaign('${item.id}')" title="Remove">✕</button>
+              </div>
+            </div>
+            <span class="campaign-status status-${item.status}">${statusLabel}</span>
+            ${item.notes ? `<div class="campaign-notes">${escHtml(item.notes)}</div>` : ''}
+          </div>
+        `;
+      }).join('');
+    }
+  }
+
+  function openCampaignModal() {
+    document.getElementById('campaignModal').classList.add('active');
+  }
+
+  function closeCampaignModal() {
+    document.getElementById('campaignModal').classList.remove('active');
+    document.getElementById('campName').value = '';
+    document.getElementById('campStart').value = '';
+    document.getElementById('campEnd').value = '';
+    document.getElementById('campStatus').value = 'planning';
+    document.getElementById('campNotes').value = '';
+  }
+
+  function addCampaign() {
+    const name = document.getElementById('campName').value.trim();
+    if (!name) return;
+
+    const items = load('campaigns', []);
+    items.push({
+      id: genId(),
+      name,
+      start: document.getElementById('campStart').value,
+      end: document.getElementById('campEnd').value,
+      status: document.getElementById('campStatus').value,
+      notes: document.getElementById('campNotes').value.trim()
+    });
+    save('campaigns', items);
+
+    closeCampaignModal();
+    renderCampaigns();
+    renderStats();
+  }
+
+  function removeCampaign(id) {
+    let items = load('campaigns', []);
+    items = items.filter(i => i.id !== id);
+    save('campaigns', items);
+    renderCampaigns();
+    renderStats();
+  }
+
+  // ==================== STATS ====================
+  function renderStats() {
+    const daily = loadDailyTasks();
+    const dailyDone = daily.filter(t => t.checked).length;
+    const waiting = load('waiting', []);
+    const overdue = waiting.filter(w => daysUntil(w.date) < 0).length;
+    const deadlines = load('deadlines', []);
+    const nextDeadline = deadlines.sort((a, b) => daysUntil(a.date) - daysUntil(b.date)).find(d => daysUntil(d.date) >= 0);
+    const campaigns = load('campaigns', []);
+    const activeCampaigns = campaigns.filter(c => c.status !== 'completed').length;
+
+    document.getElementById('statsRow').innerHTML = `
+      <div class="stat-card">
+        <div class="stat-value">${dailyDone}/${daily.length}</div>
+        <div class="stat-label">Tasks Done Today</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value" style="${overdue > 0 ? 'color: var(--red)' : ''}">${waiting.length}</div>
+        <div class="stat-label">${overdue > 0 ? `Waiting On (${overdue} overdue)` : 'Waiting On'}</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value">${nextDeadline ? daysUntil(nextDeadline.date) : '—'}</div>
+        <div class="stat-label">${nextDeadline ? 'Days to Next Deadline' : 'No Deadlines'}</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value">${activeCampaigns}</div>
+        <div class="stat-label">Active Campaigns</div>
+      </div>
+    `;
+  }
+
+  // ==================== NAV ====================
+  document.querySelectorAll('.nav-tab').forEach(tab => {
+    tab.addEventListener('click', () => {
+      document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+      document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+      tab.classList.add('active');
+      document.getElementById('panel-' + tab.dataset.panel).classList.add('active');
+    });
+  });
+
+  // Day chip toggle
+  document.querySelectorAll('#daySelector .day-chip').forEach(chip => {
+    chip.addEventListener('click', () => chip.classList.toggle('selected'));
+  });
+
+  // Close modal on overlay click
+  document.getElementById('campaignModal').addEventListener('click', (e) => {
+    if (e.target === e.currentTarget) closeCampaignModal();
+  });
+
+  // ==================== UTILS ====================
+  function escHtml(str) {
+    const div = document.createElement('div');
+    div.textContent = str;
+    return div.innerHTML;
+  }
+
+  // ==================== INIT ====================
+  function init() {
+    // Set header date
+    const now = new Date();
+    document.getElementById('headerDate').textContent = now.toLocaleDateString('en-US', {
+      weekday: 'long', month: 'long', day: 'numeric', year: 'numeric'
+    });
+
+    // Set default date inputs to next week
+    const nextWeek = new Date(now.getTime() + 7 * 24 * 60 * 60 * 1000).toISOString().split('T')[0];
+    document.getElementById('waitingDate').value = '';
+    document.getElementById('deadlineDate').value = '';
+
+    // Render everything
+    renderDailyTasks();
+    renderWaiting();
+    renderDeadlines();
+    renderNotes();
+    renderWeekly();
+    renderCampaigns();
+    renderStats();
+  }
+
+  init();
+</script>
+
+</body>
+</html>
